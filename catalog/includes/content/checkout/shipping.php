@@ -19,7 +19,7 @@ class lC_Checkout_Shipping extends lC_Template {
   /* Class constructor */
   public function lC_Checkout_Shipping() {  
     global $lC_Database, $lC_ShoppingCart, $lC_Customer, $lC_Services, $lC_Language, $lC_NavigationHistory, $lC_Breadcrumb, $lC_Shipping, $lC_MessageStack, $lC_Vqmod;
-       
+         
     require_once($lC_Vqmod->modCheck('includes/classes/address_book.php')); 
 
     /*VQMOD-002*/
@@ -45,11 +45,11 @@ class lC_Checkout_Shipping extends lC_Template {
     }
 
     if ($lC_Customer->hasDefaultAddress() === false) {
-      if(isset($_GET['account_created'])){
-      lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'shipping_address&account_created=true', 'SSL'));
-    }else{
-      lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'shipping_address', 'SSL'));
-    }
+      if (isset($_GET['account_created'])) {
+        lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'shipping_address&account_created=true', 'SSL'));
+      } else {
+        lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'shipping_address', 'SSL'));
+      }
     } else {
       $this->addJavascriptFilename('templates/' . $this->getCode() . '/javascript/shipping.js.php');
 

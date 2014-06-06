@@ -31,9 +31,9 @@ class lC_Checkout_Payment extends lC_Template {
     if ($lC_ShoppingCart->hasContents() === false) {
       lc_redirect(lc_href_link(FILENAME_CHECKOUT, null, 'SSL'));
     }
-
+    
     // if no shipping method has been selected, redirect the customer to the shipping method selection page
-    if ($lC_ShoppingCart->hasShippingMethod() === false ) {
+    if ($lC_ShoppingCart->hasShippingMethod() === false) {
       if (defined('SKIP_CHECKOUT_SHIPPING_PAGE') && SKIP_CHECKOUT_SHIPPING_PAGE == '1') {
       } else {
         lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'shipping', 'SSL'));

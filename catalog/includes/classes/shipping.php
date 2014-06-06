@@ -22,7 +22,7 @@ class lC_Shipping {
   public function lC_Shipping($module = '') {
     global $lC_Database, $lC_Language, $lC_Addons, $lC_Vqmod;
 
-    $this->_quotes =& $_SESSION['lC_ShoppingCart_data']['shipping_quotes'];
+    $this->_quotes = $_SESSION['lC_ShoppingCart_data']['shipping_quotes'];
 
     $Qmodules = $lC_Database->query("select code, modules_group from :table_templates_boxes where modules_group LIKE '%shipping%'");
     $Qmodules->bindTable(':table_templates_boxes', TABLE_TEMPLATES_BOXES);

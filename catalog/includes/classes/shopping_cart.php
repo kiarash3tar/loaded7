@@ -929,10 +929,11 @@ class lC_ShoppingCart {
     return $this->_billing_method[$key];
   }
 
-  public function resetBillingMethod() {
+  // modified for lost shipping method when editing payment address ("$set_shipping")
+  public function resetBillingMethod($set_shipping = true) {
     $this->_billing_method = array();
-
-    $this->_calculate();
+    
+    $this->_calculate($set_shipping);
   }
 
   public function hasBillingMethod() {
@@ -1084,13 +1085,13 @@ class lC_ShoppingCart {
         if ( !class_exists('lC_Shipping') ) {
           include($lC_Vqmod->modCheck('includes/classes/shipping.php'));
         }
-
-        if ( !$this->hasShippingMethod() || ($this->getShippingMethod('is_cheapest') === true) ) {
-          $lC_Shipping = new lC_Shipping();
-          $this->setShippingMethod($lC_Shipping->getCheapestQuote(), false);
-        } else {
+        
+        if ( $this->hasShippingMethod() || ($this->getShippingMethod('is_cheapest') === true) ) {
           $lC_Shipping = new lC_Shipping($this->getShippingMethod('id'));
           $this->setShippingMethod($lC_Shipping->getQuote(), false);
+        } else {
+          $lC_Shipping = new lC_Shipping();
+          $this->setShippingMethod($lC_Shipping->getCheapestQuote(), false);
         } 
       }
 
@@ -1101,7 +1102,7 @@ class lC_ShoppingCart {
       $lC_OrderTotal = new lC_OrderTotal();
       $this->_order_totals = $lC_OrderTotal->getResult();
       
-       // coupons
+      // coupons
       if (defined('MODULE_SERVICES_INSTALLED') && in_array('coupons', explode(';', MODULE_SERVICES_INSTALLED)) && isset($lC_Coupons)) {
         $lC_Coupons->displayCouponInOrderTotal();
       }

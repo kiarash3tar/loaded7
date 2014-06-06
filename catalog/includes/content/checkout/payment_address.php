@@ -19,7 +19,7 @@ class lC_Checkout_Payment_address extends lC_Template {
   /* Class constructor */
   public function lC_Checkout_Payment_address() {
     global $lC_Session, $lC_ShoppingCart, $lC_Customer, $lC_Services, $lC_Language, $lC_NavigationHistory, $lC_Breadcrumb, $lC_Vqmod;
-
+    
     require_once($lC_Vqmod->modCheck('includes/classes/address_book.php'));
 
     if ($lC_Customer->isLoggedOn() === false) {
@@ -206,8 +206,11 @@ class lC_Checkout_Payment_address extends lC_Template {
           }
 
           $lC_ShoppingCart->setBillingAddress($address_book_id);
-          $lC_ShoppingCart->resetBillingMethod();
-
+          // START modified for lost shipping method when editing payment address
+          $set_shipping = false;
+          $lC_ShoppingCart->resetBillingMethod($set_shipping);
+          // END modified for lost shipping method when editing payment address
+          
           lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'payment', 'SSL'));
         } else {
           $lC_MessageStack->add('checkout_address', 'Error inserting into address book table.');
@@ -245,7 +248,7 @@ class lC_Checkout_Payment_address extends lC_Template {
     } else {
       $lC_ShoppingCart->setBillingAddress($lC_Customer->getDefaultAddressID());
       lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'payment', 'SSL'));
-    }
+    }            
   }
 }
 ?>
