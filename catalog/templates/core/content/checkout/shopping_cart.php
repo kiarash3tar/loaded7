@@ -110,6 +110,18 @@
         }
         ?>         
       </form>
+      <div class="row large-margin-bottom" id="content-shopping-cart-esitmation">
+        <div id="content-shopping-cart-esitmation-coupon" class="col-sm-12 col-lg-12 mid-margin-bottom">
+          <span class="pull-right"><button data-toggle="dropdown" class="btn btn-inverse small-margin-left">Go</button></span>
+          <span class="pull-right"><input type="text" class="form-control small-margin-left"></span>
+          <span class="pull-right with-small-padding">Have a coupon, enter it here</span>
+        </div>
+        <div id="content-shopping-cart-esitmation-shipping" class="col-sm-12 col-lg-12">
+          <span class="pull-right"><button data-toggle="dropdown" class="btn btn-inverse small-margin-left">Go</button></span>
+          <span class="pull-right"><input type="text" class="form-control small-margin-left"></span>
+          <span class="pull-right with-small-padding">For Tax and Shipping estimate enter your zip code</span>
+        </div>
+      </div>
       <div class="row" id="content-shopping-cart-order-totals">
         <div id="content-shopping-cart-order-totals-left" class="col-sm-6 col-lg-6"></div>
         <div id="content-shopping-cart-order-totals-right" class="col-sm-6 col-lg-6">
