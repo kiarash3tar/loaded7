@@ -2955,5 +2955,20 @@ Your friend, %s, thought that you would be interested in %s from %s.]]></value>
       <value><![CDATA[You have removed your coupon]]></value>
       <group>general</group>
     </definition>
+    <definition>
+      <key>text_shopping_cart_estimation_coupon</key>
+      <value><![CDATA[Have a coupon, enter it here]]></value>
+      <group>checkout</group>
+    </definition>
+    <definition>
+      <key>text_shopping_cart_estimation_postal_code</key>
+      <value><![CDATA[ Tax and Shipping estimate enter your zip code]]></value>
+      <group>checkout</group>
+    </definition>
+    <definition>
+      <key>button_go</key>
+      <value><![CDATA[Go]]></value>
+      <group>general</group>
+    </definition>
   </definitions>  
 </language>
