@@ -39,7 +39,25 @@ function getShippingEstimates(postal_code) {
       $('#content_shopping_cart_esitmation_shipping').html('');
       $('#content_shopping_cart_esitmation_shipping').html('<div class="col-sm-8 col-lg-8"></div>'+
                                                            '<div class="col-sm-4 col-lg-4">'+
-                                                           '  <span class="pull-left">Shipping (32226):</span><span class="pull-right no-margin-right">$8.50</span>'+
+                                                           '  <span class="pull-left">Shipping (32226): <span onclick="removeShippingEstimates();" class="glyphicon glyphicon-remove-circle red"></span></span><span class="pull-right no-margin-right">$8.50</span>'+
+                                                           '</div>');
+    }
+  );
+}
+
+function removeShippingEstimates() {
+  var jsonLink = '<?php echo lc_href_link('rpc.php', 'checkout&action=removeShippingEstimates', 'AUTO'); ?>';   
+  $.getJSON(jsonLink.split('amp;').join(''),
+    function (data) {
+      if (data.rpcStatus != 1) {
+        alert('<?php echo $lC_Language->get('ms_error_action_not_performed'); ?>');
+        return false;
+      }
+      $('#content_shopping_cart_esitmation_shipping').html('');
+      $('#content_shopping_cart_esitmation_shipping').html('<div class="col-sm-12 col-lg-12">'+
+                                                           '  <span class="pull-right"><button onclick="getShippingEstimates($(\'#shopping_cart_esitmation_shipping_postal_code\').val());" class="btn btn-inverse small-margin-left"><?php echo $lC_Language->get('button_go'); ?></button></span>'+
+                                                           '  <span class="pull-right"><input id="shopping_cart_esitmation_shipping_postal_code" type="text" class="form-control small-margin-left"></span>'+
+                                                           '  <span class="pull-right with-small-padding"><?php echo $lC_Language->get('text_shopping_cart_estimation_postal_code'); ?></span>'+
                                                            '</div>');
     }
   );

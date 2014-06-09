@@ -134,7 +134,7 @@ class lC_Checkout_rpc {
   * @return json
   */
   public static function getShippingEstimates() {
-    global $lC_ShoppingCart;
+    //global $lC_ShoppingCart;
     
     $result = array();
     //if (isset($_GET['postal_code']) && $_GET['postal_code'] != '') {
@@ -147,6 +147,21 @@ class lC_Checkout_rpc {
                                        'tax_class_id' => 0);
       $result['rpcStatus'] = '1';
     //}
+    
+    echo json_encode($result);
+  }    
+ /*
+  * Remove Shipping Estimates
+  *
+  * @access public
+  * @return json
+  */
+  public static function removeShippingEstimates() {
+    //global $lC_ShoppingCart;
+    
+    // clear the shipping estimates and return to js function for html updates 
+    
+    $result['rpcStatus'] = '1';
     
     echo json_encode($result);
   }
