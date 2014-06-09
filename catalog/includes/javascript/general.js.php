@@ -163,10 +163,10 @@
           return false;
         }
         url = window.location.href;
-        if(data.rpcMessage != '') {     
+        if (data.rpcMessage != '') {     
           //url = window.location.href+'&msg='+data.rpcMessage;
           //url.replace("/&msg=/g", '&msg='+data.rpcMessage);   
-         }
+        }
         window.location.href = url;
       }
     );  
@@ -264,6 +264,7 @@
     }
     return output;
   }
+  
   //QR Code JSON
   $("#qrcode-tooltip").click(function(){
     var jsonLink = '<?php echo lc_href_link('rpc.php', 'index&action=getqrcode', 'AUTO'); ?>';   

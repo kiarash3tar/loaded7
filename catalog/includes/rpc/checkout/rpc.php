@@ -126,6 +126,29 @@ class lC_Checkout_rpc {
     }
     
     echo json_encode($result);
+  }     
+ /*
+  * Get Shipping Estimates
+  *
+  * @access public
+  * @return json
+  */
+  public static function getShippingEstimates() {
+    global $lC_ShoppingCart;
+    
+    $result = array();
+    //if (isset($_GET['postal_code']) && $_GET['postal_code'] != '') {
+      //$_SESSION['shipto_postal_code'] = $_GET['postal_code'];
+      $result['shippingArray'] = array('id' => 'table',
+                                       'module' => 'Table Rate',
+                                       'methods' => array('id' => 'table',
+                                                          'title' => 'Best Way',
+                                                          'cost' => 8.5),
+                                       'tax_class_id' => 0);
+      $result['rpcStatus'] = '1';
+    //}
+    
+    echo json_encode($result);
   }
 }
 ?>

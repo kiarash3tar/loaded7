@@ -17,9 +17,9 @@ $(document).ready(function() {
     trigger: 'click',
     'placement': 'left'
   }).click(function(e) {
-      $('[data-toggle="popover-mobile"]').not(this).popover('hide');
-      isVisible = true;
-      clickedAway = false;
+    $('[data-toggle="popover-mobile"]').not(this).popover('hide');
+    isVisible = true;
+    clickedAway = false;
   });
   $(document).click(function (e) {
     if (isVisible & clickedAway) {

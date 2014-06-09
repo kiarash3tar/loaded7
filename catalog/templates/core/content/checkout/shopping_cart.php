@@ -110,19 +110,23 @@
         }
         ?>         
       </form>
-      <div class="row large-margin-bottom" id="content-shopping-cart-esitmation">
-        <div id="content-shopping-cart-esitmation-coupon" class="col-sm-12 col-lg-12 mid-margin-bottom">
-          <span class="pull-right"><button class="btn btn-inverse small-margin-left"><?php echo $lC_Language->get('button_go'); ?></button></span>
-          <span class="pull-right"><input type="text" class="form-control small-margin-left"></span>
-          <span class="pull-right with-small-padding"><?php echo $lC_Language->get('text_shopping_cart_estimation_coupon'); ?></span>
-        </div>
-        <div id="content-shopping-cart-esitmation-shipping" class="col-sm-12 col-lg-12">
-          <span class="pull-right"><button class="btn btn-inverse small-margin-left"><?php echo $lC_Language->get('button_go'); ?></button></span>
-          <span class="pull-right"><input type="text" class="form-control small-margin-left"></span>
+      <!-- Shipping Estimation & Coupons -->
+      <?php if ($lC_Customer->isLoggedOn() === true) { ?>
+      <div class="row" id="content_shopping_cart_esitmation_coupon">
+        <span class="pull-right"><button class="btn btn-inverse small-margin-left"><?php echo $lC_Language->get('button_go'); ?></button></span>
+        <span class="pull-right"><input type="text" class="form-control small-margin-left"></span>
+        <span class="pull-right with-small-padding"><?php echo $lC_Language->get('text_shopping_cart_estimation_coupon'); ?></span>
+      </div>
+      <?php } ?>
+      <div class="row margin-bottom" id="content_shopping_cart_esitmation_shipping">
+        <div class="col-sm-12 col-lg-12">
+          <span class="pull-right"><button onclick="getShippingEstimates($('#shopping_cart_esitmation_shipping_postal_code').val());" class="btn btn-inverse small-margin-left"><?php echo $lC_Language->get('button_go'); ?></button></span>
+          <span class="pull-right"><input id="shopping_cart_esitmation_shipping_postal_code" type="text" class="form-control small-margin-left"></span>
           <span class="pull-right with-small-padding"><?php echo $lC_Language->get('text_shopping_cart_estimation_postal_code'); ?></span>
         </div>
       </div>
-      <div class="row" id="content-shopping-cart-order-totals">
+      <!-- Order Totals -->
+      <div class="row" id="content_shopping_cart_order_totals">
         <div id="content-shopping-cart-order-totals-left" class="col-sm-6 col-lg-6"></div>
         <div id="content-shopping-cart-order-totals-right" class="col-sm-6 col-lg-6">
           <?php
