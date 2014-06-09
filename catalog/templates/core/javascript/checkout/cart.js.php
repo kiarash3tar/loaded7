@@ -39,7 +39,7 @@ function getShippingEstimates(postal_code) {
       $('#content_shopping_cart_esitmation_shipping').html('');
       $('#content_shopping_cart_esitmation_shipping').html('<div class="col-sm-8 col-lg-8"></div>'+
                                                            '<div class="col-sm-4 col-lg-4">'+
-                                                           '  <span class="pull-left">Shipping (32226): <span onclick="removeShippingEstimates();" class="glyphicon glyphicon-remove-circle red"></span></span><span class="pull-right no-margin-right">$8.50</span>'+
+                                                           '  <span class="pull-left">Shipping (32226): <span onclick="removeShippingEstimates();" class="glyphicon glyphicon-remove-circle red cursor-pointer"></span></span><span class="pull-right no-margin-right">$8.50</span>'+
                                                            '</div>');
     }
   );
