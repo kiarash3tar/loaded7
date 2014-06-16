@@ -52,6 +52,7 @@ field_use_product_price = Use Product Price
 field_use_product_weight = Use Product Weight
 field_use_product_status = Use Product Status
 field_set_qoh_for_each = Set QOH for each to
+field_dimensional = Dimensional
 
 heading_title = Products
 heading_title_new_product = New Product
@@ -95,7 +96,8 @@ info_bubble_shipping_dimensions = Product Dimensions
 info_bubble_shipping_handling_fee = Shipping Handling Fee
 info_bubble_shipping_fee_override = Shipping Fee Override
 info_bubble_shipping_warehouse = Product Warehouse 
-info_bubble_shipping_date_expected = Producr Expected Date
+info_bubble_shipping_date_expected = Product Expected Date
+info_bubble_shipping_dimensional = Product Dimensions
 
 introduction_select_local_images = The following images are available on the server where additional images can be uploaded via FTP. The listing can be refreshed by clicking on the Local Files link.<br /><br />Please select from the following listing which images to assign to this product.
 introduction_delete_image = Please verify the removal of the product image.
@@ -134,6 +136,10 @@ ms_error_break_point_must_be_higher = The break point must be higher than the pr
 ms_error_break_price_must_be_lower = The price must be lower than the previous price.
 ms_warning_options_set_complete = The options have been created but they are incomplete and have been set inactive. You can update the status globally here however we recommend you continue to the Options tab to complete the data entry.
 ms_info_options_set_pricing = Pricing for options is also set on the Pricing tab.
+
+placeholder_length = Length
+placeholder_width = Width
+placeholder_height = Height
 
 section_general = Content
 section_pricing = Pricing 
@@ -304,7 +310,9 @@ text_additional_images_upsell_title = Additional Images
 text_additional_images_upsell_desc = Additional Images Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. 
 text_no_options_defined = No Options Defined
 text_view_in_catalog = View in catalog
+text_dimensional_upsell_title = Dimensional Measurements
+text_dimensional_upsell_desc = Upgrade to Pro and add dimensional data to your products for better shipping estimates. 
 
 validation_error_single = You have an error on the page. Check all tabs and proceed.
 validation_error_multiple_start = You have
-validation_error_multiple_end = errors on the page. Check all tabs and proceed. 
+validation_error_multiple_end = errors on the page. Check all tabs and proceed.

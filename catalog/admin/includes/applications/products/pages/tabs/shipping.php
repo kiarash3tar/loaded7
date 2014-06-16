@@ -33,6 +33,23 @@ global $lC_Language, $pInfo, $weight_class_array;
             </div>
           </div>
         </div>
+        <div class="columns no-margin-bottom">
+          <div class="new-row-mobile six-columns six-columns-tablet twelve-columns-mobile">
+            <div class="twelve-columns no-margin-bottom strong upsellwrapper">
+              <span><?php echo $lC_Language->get('field_dimensional'); ?></span>
+              <?php echo lc_show_info_bubble($lC_Language->get('info_bubble_shipping_dimensional'), null); ?>
+              <span class="upsellinfo float-right mid-margin-right" upselltitle="<?php echo $lC_Language->get('text_dimensional_upsell_title'); ?>" upselldesc="<?php echo $lC_Language->get('text_dimensional_upsell_desc'); ?>"><?php echo lc_go_pro(); ?></span>  
+            </div>
+            <div class="twelve-columns no-margin-bottom small-margin-top">
+              <input type="text" class="input mid-margin-bottom full-width" value="<?php echo (isset($pInfo) ? $pInfo->get('products_length') : null); ?>" id="products_length" name="products_length" placeholder="<?php echo $lC_Language->get('placeholder_length'); ?>" disabled />
+              <input type="text" class="input mid-margin-bottom full-width" value="<?php echo (isset($pInfo) ? $pInfo->get('products_width') : null); ?>" id="products_width" name="products_width" placeholder="<?php echo $lC_Language->get('placeholder_width'); ?>" disabled />
+              <input type="text" class="input mid-margin-bottom full-width" value="<?php echo (isset($pInfo) ? $pInfo->get('products_height') : null); ?>" id="products_height" name="products_height" placeholder="<?php echo $lC_Language->get('placeholder_height'); ?>" disabled />
+            </div>
+          </div>
+          <div class="new-row-mobile six-columns six-columns-tablet twelve-columns-mobile">
+            <!-- empty -->
+          </div>
+        </div>
       </fieldset>
     </div>
     <div class="twelve-columns">
