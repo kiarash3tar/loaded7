@@ -607,8 +607,8 @@ class lC_Payment_payflow_EC extends lC_Payment {
                 "&CANCELURL=" . lc_href_link(FILENAME_CHECKOUT, 'process', 'SSL', true, true, true) .                 
                 "&ITEMAMT=" . $lC_Currencies->formatRaw($lC_ShoppingCart->getSubTotal(), $lC_Currencies->getCode()) . 
                 "&TAXAMT=" . $lC_Currencies->formatRaw($taxTotal, $lC_Currencies->getCode()) . 
-                "&FREIGHTAMT=" . $shippingTotal .               
-                "&DISCOUNT=" . $discountTotal .               
+                "&FREIGHTAMT=" . $lC_Currencies->formatRaw($shippingTotal, $lC_Currencies->getCode()) .               
+                "&DISCOUNT=" . $lC_Currencies->formatRaw($discountTotal, $lC_Currencies->getCode()) .               
                 "&PHONENUM=" . $lC_Customer->getTelephone() . 
                 "&EMAIL=" . $lC_Customer->getEmailAddress() . 
                 "&SHIPTONAME=" . $lC_ShoppingCart->getShippingAddress('firstname') . " " . $lC_ShoppingCart->getShippingAddress('lastname') .
@@ -618,10 +618,13 @@ class lC_Payment_payflow_EC extends lC_Payment {
                 "&SHIPTOCOUNTRY=" . $lC_ShoppingCart->getShippingAddress('country_iso_code_2') . 
                 "&SHIPTOZIP=" . $lC_ShoppingCart->getShippingAddress('postcode') . 
                 "&CURRENCY=" . $_SESSION['currency'] . 
-                "&INVNUM=" . $this->_order_id . 
-                "&ADDROVERRIDE=1";
+                "&INVNUM=" . $this->_order_id ;/*. 
+                "&ADDROVERRIDE=1";*/
     
-    $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));    
+    $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));   
+    
+    list($headers1, $body1,$body2) = explode("\r\n\r\n", $response, 3);
+      $response = (empty($body2)) ? $body1 : $body2;  
    
     if (!$response) { // server failure error
       $lC_MessageStack->add('shopping_cart', $lC_Language->get('payment_payflow_EC_error_server'), 'error');
