@@ -499,6 +499,7 @@ class lC_Payment_payflow_EC extends lC_Payment {
                 "&TENDER=P" . 
                 "&ACTION=D" . 
                 "&BUTTONSOURCE=CRELoaded_Cart_EC_US" .
+                "&CURRENCY=" . $_SESSION['currency'] .
                 "&AMT=" . $lC_Currencies->formatRaw($lC_ShoppingCart->getTotal(), $lC_Currencies->getCode()) .
                 "&TOKEN=" . $token . 
                 "&PAYERID=" . $payerID;
@@ -541,6 +542,7 @@ class lC_Payment_payflow_EC extends lC_Payment {
                 "&TRXTYPE=" . $transType . 
                 "&TENDER=P" . 
                 "&ACTION=G" . 
+                "&CURRENCY=" . $_SESSION['currency'] .
                 "&TOKEN=" . $token;
          
     $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));    
@@ -582,7 +584,7 @@ class lC_Payment_payflow_EC extends lC_Payment {
       $itemsString .= '&L_NAME' . (string)$cnt . '=' . $products['name'] .
                       '&L_DESC' . (string)$cnt . '=' . substr($products['description'], 0, 40) .
                       //'&L_SKU' . (string)$cnt . '=' . $products['id'] .
-                      '&L_COST' . (string)$cnt . '=' . $products['price'] .
+                      '&L_COST' . (string)$cnt . '=' . $lC_Currencies->formatRaw($products['price'], $lC_Currencies->getCode()) .
                       '&L_QTY' . (string)$cnt . '=' . $products['quantity'];
       $cnt++;                      
     } 
@@ -600,7 +602,7 @@ class lC_Payment_payflow_EC extends lC_Payment {
     $postData = $this->_getUserParams() .  
                 "&TRXTYPE=" . $transType . 
                 "&TENDER=P" . 
-                "&USERSELECTEDFUNDINGSOURCE=BML" .
+                //"&USERSELECTEDFUNDINGSOURCE=BML" .
                 "&ACTION=S" . $itemsString .
                 "&AMT=" . $lC_Currencies->formatRaw($lC_ShoppingCart->getTotal(), $lC_Currencies->getCode()) .
                 "&RETURNURL=" . lc_href_link(FILENAME_CHECKOUT, 'process', 'SSL', true, true, true) .
@@ -623,8 +625,9 @@ class lC_Payment_payflow_EC extends lC_Payment {
     
     $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));   
     
-    list($headers1, $body1,$body2) = explode("\r\n\r\n", $response, 3);
+   /* list($headers1, $body1,$body2) = explode("\r\n\r\n", $response, 3);
       $response = (empty($body2)) ? $body1 : $body2;  
+   */
    
     if (!$response) { // server failure error
       $lC_MessageStack->add('shopping_cart', $lC_Language->get('payment_payflow_EC_error_server'), 'error');
