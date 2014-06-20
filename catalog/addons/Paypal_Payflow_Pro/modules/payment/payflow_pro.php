@@ -256,8 +256,9 @@ class lC_Payment_payflow_pro extends lC_Payment {
         echo lc_draw_hidden_field('payflow_pro_cc_cvv', $payflow_pro_cc_cvv);
       }
 
-    } else if(!$_SESSION['PPEC_PAYDATA'] && $_SESSION['payflow_pro_ec'] == 1) {       
-      $_SESSION['PPEC_TOKEN'] = $this->setExpressCheckout(); 
+    } else if(!$_SESSION['PPEC_PAYDATA'] && $_SESSION['payflow_pro_ec'] == 1) { 
+      $bml=true;
+      $_SESSION['PPEC_TOKEN'] = $this->setExpressCheckout($bml); 
 
       if (!$_SESSION['PPEC_TOKEN']) {
         lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'cart', 'SSL')); 
@@ -477,12 +478,12 @@ class lC_Payment_payflow_pro extends lC_Payment {
   * @access public
   * @return string
   */   
-  public function setExpressCheckout() {
+  public function setExpressCheckout($bml=false) {
     global $lC_MessageStack;
 
 
 
-    $response = $this->_setExpressCheckout();
+    $response = $this->_setExpressCheckout($bml);
     if (!$response) {
       if ($lC_MessageStack->size('shopping_cart') > 0) {
         $_SESSION['messageToStack'] = $lC_MessageStack->getAll();
@@ -728,7 +729,7 @@ class lC_Payment_payflow_pro extends lC_Payment {
   * @access private
   * @return string
   */  
-  private function _setExpressCheckout() {
+  private function _setExpressCheckout($bml=false) {
     global $lC_ShoppingCart, $lC_Currencies, $lC_Language, $lC_MessageStack, $lC_Customer;
     $lC_Language->load('modules-payment');
      
@@ -782,7 +783,11 @@ class lC_Payment_payflow_pro extends lC_Payment {
                 "&CURRENCY=" . $_SESSION['currency'] . 
                 "&INVNUM=" . $this->_order_id ;/*. 
                 "&ADDROVERRIDE=1";*/
-
+    
+    if(defined('ADDONS_PAYMENT_PAYPAL_PAYFLOW_PRO_BML_OPTION') && ADDONS_PAYMENT_PAYPAL_PAYFLOW_PRO_BML_OPTION == 1 && $bml == true) {
+      $postData .= "&USERSELECTEDFUNDINGSOURCE=BML";
+    }
+    
     $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData),'curl',true); 
     
     list($headers1, $body1,$body2) = explode("\r\n\r\n", $response, 3);

@@ -205,7 +205,8 @@ class lC_Payment_payflow_EC extends lC_Payment {
     global $lC_MessageStack;
 
     if(!$_SESSION['PPEC_PAYDATA']) {
-      $_SESSION['PPEC_TOKEN'] = $this->setExpressCheckout(); 
+      $bml=true;
+      $_SESSION['PPEC_TOKEN'] = $this->setExpressCheckout($bml); 
 
       if (!$_SESSION['PPEC_TOKEN']) {
         lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'cart', 'SSL')); 
@@ -316,10 +317,10 @@ class lC_Payment_payflow_EC extends lC_Payment {
   * @access public
   * @return string
   */   
-  public function setExpressCheckout() {
+  public function setExpressCheckout($bml=false) {
     global $lC_MessageStack;
 
-    $response = $this->_setExpressCheckout();
+    $response = $this->_setExpressCheckout($bml);
 
     if (!$response) {
       if ($lC_MessageStack->size('shopping_cart') > 0) {
@@ -565,7 +566,7 @@ class lC_Payment_payflow_EC extends lC_Payment {
   * @access private
   * @return string
   */  
-  private function _setExpressCheckout() {
+  private function _setExpressCheckout($bml=false) {
     global $lC_ShoppingCart, $lC_Currencies, $lC_Language, $lC_MessageStack, $lC_Customer;
     $lC_Language->load('modules-payment');
      
@@ -600,7 +601,7 @@ class lC_Payment_payflow_EC extends lC_Payment {
     $postData = $this->_getUserParams() .  
                 "&TRXTYPE=" . $transType . 
                 "&TENDER=P" . 
-                "&USERSELECTEDFUNDINGSOURCE=BML" .
+                //"&USERSELECTEDFUNDINGSOURCE=BML" .
                 "&ACTION=S" . $itemsString .
                 "&AMT=" . $lC_Currencies->formatRaw($lC_ShoppingCart->getTotal(), $lC_Currencies->getCode()) .
                 "&RETURNURL=" . lc_href_link(FILENAME_CHECKOUT, 'process', 'SSL', true, true, true) .
@@ -620,6 +621,10 @@ class lC_Payment_payflow_EC extends lC_Payment {
                 "&CURRENCY=" . $_SESSION['currency'] . 
                 "&INVNUM=" . $this->_order_id ;/*. 
                 "&ADDROVERRIDE=1";*/
+
+    if(defined('ADDONS_PAYMENT_PAYFLOW_EXPRESS_CHECKOUT_BML_OPTION') && ADDONS_PAYMENT_PAYFLOW_EXPRESS_CHECKOUT_BML_OPTION == 1 && $bml == true) {
+      $postData .= "&USERSELECTEDFUNDINGSOURCE=BML";
+    }
     
     $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));   
     

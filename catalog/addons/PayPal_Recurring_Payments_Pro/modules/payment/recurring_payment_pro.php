@@ -254,8 +254,8 @@ class lC_Payment_recurring_payment_pro extends lC_Payment {
       }
       
     } else if(!$_SESSION['PPEC_PAYDATA'] && $_SESSION['recurring_payment_pro_ec'] == 1) {
-
-      $_SESSION['PPEC_TOKEN'] = $this->setExpressCheckout();
+      $bml=true;
+      $_SESSION['PPEC_TOKEN'] = $this->setExpressCheckout($bml);
       if (!$_SESSION['PPEC_TOKEN']) {
         lc_redirect(lc_href_link(FILENAME_CHECKOUT, 'cart', 'SSL')); 
       }
@@ -396,10 +396,10 @@ class lC_Payment_recurring_payment_pro extends lC_Payment {
   * @access public
   * @return string
   */   
-  public function setExpressCheckout() {
+  public function setExpressCheckout($bml=false) {
     global $lC_MessageStack;
 
-    $response = $this->_setExpressCheckout();
+    $response = $this->_setExpressCheckout($bml);
 
     if (!$response) {
       if ($lC_MessageStack->size('shopping_cart') > 0) {
@@ -684,7 +684,7 @@ class lC_Payment_recurring_payment_pro extends lC_Payment {
   * @access private
   * @return string
   */  
-  private function _setExpressCheckout() {
+  private function _setExpressCheckout($bml=false) {
     global $lC_ShoppingCart, $lC_Currencies, $lC_Language, $lC_MessageStack, $lC_Customer;
     $lC_Language->load('modules-payment');
     $action_url = $this->action_url;
@@ -743,6 +743,11 @@ class lC_Payment_recurring_payment_pro extends lC_Payment {
                 "&PAYMENTREQUEST_0_ITEMAMT=" . $lC_Currencies->formatRaw($lC_ShoppingCart->getSubTotal(), $lC_Currencies->getCode()) .
                 "&PAYMENTREQUEST_0_DESC=Description+goes+here". 
                 "&LOCALECODE=" . $lC_ShoppingCart->getBillingAddress('country_iso_code_2');
+    
+    if(defined('ADDONS_PAYMENT_PAYPAL_RECURRING_PAYMENTS_PRO_BML_OPTION') && ADDONS_PAYMENT_PAYPAL_RECURRING_PAYMENTS_PRO_BML_OPTION == 1 && $bml == true) {
+      $postData .= "&USERSELECTEDFUNDINGSOURCE=BML";
+    }
+
 
     $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData),'curl',true); 
     
