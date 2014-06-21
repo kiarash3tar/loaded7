@@ -542,7 +542,6 @@ class lC_Payment_payflow_EC extends lC_Payment {
                 "&TRXTYPE=" . $transType . 
                 "&TENDER=P" . 
                 "&ACTION=G" . 
-                "&CURRENCY=" . $_SESSION['currency'] .
                 "&TOKEN=" . $token;
          
     $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));    
@@ -623,8 +622,7 @@ class lC_Payment_payflow_EC extends lC_Payment {
                 "&INVNUM=" . $this->_order_id ;/*. 
                 "&ADDROVERRIDE=1";*/
     
-    $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));   
-    
+    $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));    
    /* list($headers1, $body1,$body2) = explode("\r\n\r\n", $response, 3);
       $response = (empty($body2)) ? $body1 : $body2;  
    */
