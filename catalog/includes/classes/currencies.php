@@ -54,6 +54,7 @@ class lC_Currencies {
 
     if (empty($currency_value) || (is_numeric($currency_value) == false)) {
       $currency_value = $this->currencies[$currency_code]['value'];
+      $currency_value = lc_round($currency_value,2);
     }
 
     return number_format(lc_round($number * $currency_value, $this->currencies[$currency_code]['decimal_places']), $this->currencies[$currency_code]['decimal_places'], '.', '');
