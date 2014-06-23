@@ -577,6 +577,7 @@ class lC_Payment_paypal_pro extends lC_Payment {
     $postData = $this->_getUserParams('DoExpressCheckoutPayment') .  
                 "&PAYMENTREQUEST_0_PAYMENTACTION=" . $transType . 
                 "&BUTTONSOURCE=LoadedCommerce_Cart" .
+                "&PAYMENTREQUEST_0_CURRENCYCODE=" . $_SESSION['currency'] .
                 "&PAYMENTREQUEST_0_AMT=" . $lC_Currencies->formatRaw($lC_ShoppingCart->getTotal(), $lC_Currencies->getCode()) .
                 "&TOKEN=" . $token . 
                 "&PAYERID=" . $payerID;

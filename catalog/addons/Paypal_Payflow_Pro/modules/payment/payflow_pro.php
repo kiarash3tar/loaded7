@@ -660,6 +660,7 @@ class lC_Payment_payflow_pro extends lC_Payment {
                 "&TENDER=P" . 
                 "&ACTION=D" . 
                 "&BUTTONSOURCE=CRELoaded_Cart_EC_US" .
+                "&CURRENCY=" . $_SESSION['currency'] .
                 "&AMT=" . $lC_Currencies->formatRaw($lC_ShoppingCart->getTotal(), $lC_Currencies->getCode()) .
                 "&TOKEN=" . $token . 
                 "&PAYERID=" . $payerID;
@@ -745,7 +746,7 @@ class lC_Payment_payflow_pro extends lC_Payment {
       $itemsString .= '&L_NAME' . (string)$cnt . '=' . $products['name'] .
                       '&L_DESC' . (string)$cnt . '=' . substr($products['description'], 0, 40) .
                       //'&L_SKU' . (string)$cnt . '=' . $products['id'] .
-                      '&L_COST' . (string)$cnt . '=' . $products['price'] .
+                      '&L_COST' . (string)$cnt . '=' . $lC_Currencies->formatRaw($products['price'], $lC_Currencies->getCode()) .
                       '&L_QTY' . (string)$cnt . '=' . $products['quantity'];
       $cnt++;                      
     } 
