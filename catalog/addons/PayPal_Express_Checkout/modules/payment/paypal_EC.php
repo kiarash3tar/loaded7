@@ -479,12 +479,13 @@ class lC_Payment_paypal_EC extends lC_Payment {
     $postData = $this->_getUserParams('DoExpressCheckoutPayment') .  
                 "&PAYMENTACTION=" . $transType . 
                 "&BUTTONSOURCE=LoadedCommerce_Cart" .
+                "&PAYMENTREQUEST_0_CURRENCYCODE=" . $_SESSION['currency'] .
                 "&PAYMENTREQUEST_0_AMT=" . $lC_Currencies->formatRaw($lC_ShoppingCart->getTotal(), $lC_Currencies->getCode()) .
                 "&TOKEN=" . $token . 
                 "&PAYERID=" . $payerID;
 
     $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData));
-
+    
     if (!$response) { // server failure error
       $lC_MessageStack->add('shopping_cart', $lC_Language->get('payment_paypal_EC_error_server'), 'error');
       return false;
