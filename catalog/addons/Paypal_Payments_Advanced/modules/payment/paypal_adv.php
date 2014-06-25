@@ -625,10 +625,10 @@ class lC_Payment_paypal_adv extends lC_Payment {
                 "&SHIPTOPHONENUM=" . $lC_Customer->getTelephone() . 
                 "&SHIPTOEMAIL=" . $lC_Customer->getEmailAddress() . 
                 "&CURRENCY=" . $_SESSION['currency'] . 
-                "&INVNUM=" . $this->_order_id . 
-                "&ADDROVERRIDE=1"; 
+                "&INVNUM=" . $this->_order_id ;/*. 
+                "&ADDROVERRIDE=1"; */
 
-    if(defined('ADDONS_PAYMENT_PAYPAL_PAYMENTS_ADVANCED_BML_OPTION') && ADDONS_PAYMENT_PAYPAL_EXPRESS_CHECKOUT_BML_OPTION == 1 && $bml == true) {
+    if(defined('ADDONS_PAYMENT_PAYPAL_PAYMENTS_ADVANCED_BML_OPTION') && ADDONS_PAYMENT_PAYPAL_PAYMENTS_ADVANCED_BML_OPTION == 1 && $bml == true) {
       $postData .= "&USERSELECTEDFUNDINGSOURCE=BML";
     }      
     
