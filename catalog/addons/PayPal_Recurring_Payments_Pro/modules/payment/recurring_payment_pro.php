@@ -744,11 +744,7 @@ class lC_Payment_recurring_payment_pro extends lC_Payment {
                 "&PAYMENTREQUEST_0_DESC=Description+goes+here". 
                 "&LOCALECODE=" . $lC_ShoppingCart->getBillingAddress('country_iso_code_2');
     
-    if(defined('ADDONS_PAYMENT_PAYPAL_RECURRING_PAYMENTS_PRO_BML_OPTION') && ADDONS_PAYMENT_PAYPAL_RECURRING_PAYMENTS_PRO_BML_OPTION == 1 && $bml == true) {
-      $postData .= "&USERSELECTEDFUNDINGSOURCE=BML";
-    }
-
-
+   
     $response = transport::getResponse(array('url' => $action_url, 'method' => 'post', 'parameters' => $postData),'curl',true); 
     
     list($headers1, $body1,$body2) = explode("\r\n\r\n", $response, 3);
