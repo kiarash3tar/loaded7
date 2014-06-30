@@ -182,9 +182,16 @@ class lC_Payment_authorizenet_cc extends lC_Payment {
      /* $process_button_string .= lc_draw_hidden_field('x_line_item', ($i+1) . '<|>' . substr($product['name'], 0, 31) . '<|>' . substr($product['name'], 0, 255) . '<|>' . $product['quantity'] . '<|>' . $product['price'] . '<|>' . ($product['tax_class_id'] > 0 ? 'YES' : 'NO')) . "\n";*/
       
       $authProductName = preg_replace("/[^A-Za-z0-9 ]/", '', $product['name']);
-    
-      $process_button_string .= lc_draw_hidden_field('x_line_item', substr($product['model'], 0, 30) . '<|>' . substr($authProductName, 0, 30) . '<|>' . substr($authProductName, 0, 250) . '<|>' . $product['quantity'] . '<|>' . str_replace(",",'',$product['price']) . '<|>' . ($product['tax_class_id'] > 0 ? 'YES' : 'NO')) . "\n";
-
+      $product_model = trim($product['model']);
+      $authProductDesc = trim($product['description']);
+      $item_id = "Item Id: ".trim($product['item_id']);
+      if(empty($product_model)) {
+        $item_id .= ' - Model: '.substr($product_model, 0, 12); 
+      } else {
+        $item_id = substr($product_model, 0, 30);
+      }      
+      
+      $process_button_string .= lc_draw_hidden_field('x_line_item',$item_id. '<|>' . substr($authProductName, 0, 30) . '<|>' . substr($authProductDesc, 0, 250) . '<|>' . $product['quantity'] . '<|>' . str_replace(",",'',number_format($product['price'],2)) . '<|>' . ($product['tax_class_id'] > 0 ? 'YES' : 'NO')) . "\n";
       $i++;
     }
 
