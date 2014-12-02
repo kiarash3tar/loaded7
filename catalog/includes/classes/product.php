@@ -1008,7 +1008,7 @@ class lC_Product {
   * @return array
   */ 
   public function parseSubProducts($data) {
-    global $lC_Image, $lC_Currencies, $lC_Language, $lC_Tax, $lC_ShoppingCart;
+    global $lC_Image, $lC_Currencies, $lC_Language, $lC_Tax, $lC_ShoppingCart, $lC_Product;
 
     $output = '';
     foreach ($data as $key => $value) {
@@ -1021,6 +1021,7 @@ class lC_Product {
       $height = (isset($value['image']) && empty($value['image']) === false) ? $lC_Image->getHeight('small') : 1;
       $hcss = (isset($value['image']) && empty($value['image']) === false) ? null : ' style="height:1px;" ';
       $price = $value['products_price'];
+      $name = substr( $value['products_name'], strlen(  $lC_Product->getTitle() . ' - ' ));
       
       if (DISPLAY_PRICE_WITH_TAX == 1) {
         $taxClassID = ($lC_ShoppingCart->getShippingMethod('tax_class_id') != NULL) ? $lC_ShoppingCart->getShippingMethod('tax_class_id') : $this->_data['tax_class_id']; 
@@ -1036,7 +1037,7 @@ class lC_Product {
                  '    <span class="subproduct-image pull-left margin-right">' . 
                  '      <img class="img-responsive" ' . $hcss . 'src="' . $img . '" title="' . $value['products_name'] . '" height="' . $height . '" width="' . $lC_Image->getWidth('small') . '" alt="' . $value['products_name'] . '" />' .
                  '    </span>' .
-                 '    <span class="subproduct-name lead lt-blue no-margin-bottom">' . $value['products_name'] . '</span><br />' . 
+                 '    <span class="subproduct-name lead lt-blue no-margin-bottom">' . $name . '</span><br />' . 
                  ((isset($extra) && $extra != null) ? '<span class="subproduct-model small-margin-left no-margin-top"><small>' . $extra . '</small></span>' : null) .
                  '  </div>' .
                  '  <div class="col-sm-4 col-lg-4">' .
